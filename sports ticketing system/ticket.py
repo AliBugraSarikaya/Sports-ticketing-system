@@ -28,7 +28,13 @@ def SELLTICKET(name,job,category,seat):
         for i in seat:
             seat_number = 0
             if "-" in i:
-                if category_row_dict[category] < int(i.split("-")[1]):
+                if category_row_dict[category] < letters_to_numbers_dict[i[0]] + 1 and category_column_dict[category] < int(i.split("-")[1]) + 1:
+                    print("Error: The category '{}' has less row and column than the specified index {}!".format(category,i))
+                    ticket_writer.write("Error: The category '{}' has less row and column than the specified index {}!\n".format(category,i))
+                elif category_row_dict[category] < letters_to_numbers_dict[i[0]] + 1:
+                    print("Error: The category '{}' has less row than the specified index {}!".format(category,i))
+                    ticket_writer.write("Error: The category '{}' has less row than the specified index {}!\n".format(category,i))
+                elif category_column_dict[category] < int(i.split("-")[1]) + 1:
                     print("Error: The category '{}' has less column than the specified index {}!".format(category,i))
                     ticket_writer.write("Error: The category '{}' has less column than the specified index {}!\n".format(category,i))
                 else:
@@ -46,9 +52,15 @@ def SELLTICKET(name,job,category,seat):
                         print("Error: The seats {} cannot be sold to {} due some of them have already been sold!".format(i.rstrip("\n"),name))
                         ticket_writer.write("Error: The seats {} cannot be sold to {} due some of them have already been sold!\n".format(i.rstrip("\n"),name))
             else:
-                if category_row_dict[category] < int(i[1:]):
-                    print("Error: The category '{}' has less column than the specified {}!".format(category,i))
-                    ticket_writer.write("Error: The category '{}' has less column than the specified {}!\n".format(category,i))
+                if category_row_dict[category] < letters_to_numbers_dict[i[0]] + 1 and category_column_dict[category] < int(i[1:]) + 1:
+                    print("Error: The category '{}' has less row and column than the specified {}!".format(category,i.rstrip("\n")))
+                    ticket_writer.write("Error: The category '{}' has less row and column than the specified {}!\n".format(category,i.rstrip("\n")))
+                elif category_row_dict[category] < letters_to_numbers_dict[i[0]] + 1:
+                    print("Error: The category '{}' has less row than the specified {}!".format(category,i.rstrip("\n")))
+                    ticket_writer.write("Error: The category '{}' has less row than the specified {}!\n".format(category,i.rstrip("\n")))
+                elif category_column_dict[category] < int(i[1:]) + 1:
+                    print("Error: The category '{}' has less column than the specified {}!".format(category,i.rstrip("\n")))
+                    ticket_writer.write("Error: The category '{}' has less column than the specified {}!\n".format(category,i.rstrip("\n")))
                 else:
                     if i not in seat_dict[category]:
                         print("Success: {} has bought {} at {}".format(name,i.rstrip("\n"),category))
@@ -66,7 +78,13 @@ def SELLTICKET(name,job,category,seat):
 def CANCELTICKET(category,seat):
     if category in category_list:
         for i in seat:
-            if category_row_dict[category] < int(i[1:]):
+            if category_row_dict[category] < letters_to_numbers_dict[i[0]]+ 1 and category_column_dict[category] < int(i[1:]) + 1:
+                    print("Error: The category '{}' has less row and column than the specified {}!".format(category,i.rstrip("\n")))
+                    ticket_writer.write("Error: The category '{}' has less row and column than the specified {}!\n".format(category,i.rstrip("\n")))
+            elif category_row_dict[category] < letters_to_numbers_dict[i[0]] + 1:
+                print("Error: The category '{}' has less row than the specified {}!".format(category,i.rstrip("\n")))
+                ticket_writer.write("Error: The category '{}' has less row than the specified {}!\n".format(category,i.rstrip("\n")))
+            elif category_column_dict[category] < int(i[1:]) + 1:
                 print("Error: The category '{}' has less column than the specified {}!".format(category,i.rstrip("\n")))
                 ticket_writer.write("Error: The category '{}' has less column than the specified {}!\n".format(category,i.rstrip("\n")))
             else:
